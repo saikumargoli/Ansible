@@ -1,0 +1,11 @@
+ansible distribution of current machine is: "{{ansible_distribution}}"
+python version available in current machine is: "{{ansible_python_version}}"
+default ipv4 address is: "{{ansible_default_ipv4}}"
+RAM: "{{ ansible_memtotal_mb }}"
+nodename: "{{ansible_nodename}}"
+
+{% if ansible_memtotal_mb >= 970 %}
+ your RAM is going to exhaust
+{% else %}
+ your RAM is stable
+{% endif %}

@@ -1,0 +1,20 @@
+- name: "Validate if the file is present"
+  hosts: all
+  become_user: root
+  become_method: sudo
+  become: yes
+  tasks:
+    - name: "Creating the file if not exists"
+      copy:
+        dest: "/home/command_module"
+        content: "hello"
+      # args:
+      #creates: "/home/command_module"
+          #register: createif
+
+    - name: "Display the created file"
+      command: "ls -lrt /home/command_module"
+        #register: displayif
+        #when: createif is changed
+
+    - debug: var=displayif.stdout

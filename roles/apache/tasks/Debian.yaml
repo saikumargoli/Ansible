@@ -1,0 +1,17 @@
+- name: install nginx
+  apt:
+   name: "{{package_name}}"
+   state: latest
+   update_cache: true
+
+- name: start nginx service
+  service:
+   name: "{{service_name}}"
+   state: started
+   enabled: true 
+
+- name: copymodule
+  copy:
+    src: "{{src_path}}"
+    dest: "{{destination_path}}"
+  notify: restart nginx

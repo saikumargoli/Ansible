@@ -1,0 +1,26 @@
+- hosts : remoteservers
+  remote_user : ubuntu
+  become_user : root
+  become_method : sudo
+  become : yes
+  Vars : 
+    package_name : nginx
+    service_name : nginx
+    dest_path : /var/www/html
+    index_file : index.html   
+  tasks :
+    - name : install inginx on remote server
+      apt :
+        name : package_name
+        update_cache : yes
+        state : latest
+    - name : service module in jenkins
+      service:
+        name: service_name
+        enabled: true
+        state: restarted
+    - name: copy index.html
+      copy :
+        src: /home/ubuntu/ansible/index_file
+        dest: dest_path
+

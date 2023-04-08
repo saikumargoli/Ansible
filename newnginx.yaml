@@ -1,0 +1,26 @@
+- hosts : all
+  remote_user : root
+  become_method : sudo
+  become : yes
+
+  vars :
+   package_name : nginx
+   service_name : nginx
+   destination_path : /var/www/html
+   index_file : index1.html
+  tasks:
+   - name : install apache on remote server
+     apt :
+       name : "{{package_name}}"
+       update_cache : yes
+       state : latest
+
+   - name : enable the service
+     service :
+       enabled : true
+       name : "{{service_name}}"
+       state : started
+   - name : copy index1.html file from local to remote
+     copy :
+       src : /home/ubuntu/ansible/index1.html
+       dest: /var/www/html/"{{index_file}}"
